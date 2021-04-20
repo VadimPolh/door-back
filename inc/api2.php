@@ -9,15 +9,15 @@ include 'apis/sales.php';
 include 'apis/steps.php';
 include 'apis/doors.php';
 include 'apis/users.php';
+include 'apis/pusher.php';
 
 add_action( 'rest_api_init', function () {
 
     //Служебное
-  register_rest_route( 'door/v1', '/get/fields', array(
+  register_rest_route( 'door/v1', '/push/update', array(
     'methods' => 'GET',
-    'callback' => 'get_fields_acf',
+    'callback' => 'pushTOS',
   ) );
-
 
   register_rest_route( 'stars/v1', '/get/services', array(
     'methods' => 'GET',

@@ -1,6 +1,6 @@
 <?php
 
-
+add_action( 'rest_api_init', function () {
 // Заказы
 register_rest_route( 'door/v1', '/get/sales', array(
     'methods' => 'GET',
@@ -18,6 +18,8 @@ register_rest_route( 'door/v1', '/delete/sales', array(
     'methods' => 'GET',
     'callback' => 'deleteSales_callback',
 ));
+
+});
 
 
 
