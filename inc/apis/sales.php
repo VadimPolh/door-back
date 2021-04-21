@@ -160,6 +160,7 @@ function get_sales( $data ){
         unset($order_items);
     }
 
+    pushTOS("viewOrder","Пользователь получил заказы",0,$curruser->id);
 
     return $salses;
 }
@@ -330,6 +331,8 @@ function addSales_callback(WP_REST_Request $request) {
 
     }
 
+    pushTOS("createOrder","Пользователь создал заказ, обновляем данные",$order->get_id(), $data['user_id']);
+
     return $return;
 }
 
@@ -437,8 +440,7 @@ function editSales_callback(WP_REST_Request $request){
 
         update_field( 'montazhnaya_brigada', $data['team']['id'], $order->get_id());
         update_field( 'zamershhik', $data['zamershik']['id'], $order->get_id());
-
-        
+     
 
         update_field('czena_prodovcza',$data['cost_saler'], $order->get_id());
         update_field('czena_rukovoditelya',$data['cost_diler'], $order->get_id());
@@ -458,6 +460,8 @@ function editSales_callback(WP_REST_Request $request){
     }
 
     $return['status'] = 'Заказ № '.$data['id'].' обновлен';
+
+    pushTOS("updateOrder","Пользователь изменил заказ, обновляем данные",$order->get_id(), $data['user_id']);
 
     return $return;
 }

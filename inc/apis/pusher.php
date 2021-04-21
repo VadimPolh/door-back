@@ -1,6 +1,6 @@
 <?php
 
-function pushTOS(){
+function pushTOS($type,$message,$code = 0,$user = 0){
 $options = array(
     'cluster' => 'us2',
     'useTLS' => true
@@ -13,11 +13,17 @@ $pusher = new Pusher\Pusher(
     $options
 );
 
-$data['message'] = 'hello world';
 
-$pusher->trigger('door-update', 'createOrder', $data);
-$pusher->trigger('door-update', 'updateOrder', $data);
+if ($message){
+    $data['message'] = $message;
+}
+if ($code != 0){
+    $data['order_id'] = $code;
+}
+if ($user != 0){
+    $data['user_id'] = $user;
+}
 
-
+$pusher->trigger('door-update', $type, $data);
 
 }
